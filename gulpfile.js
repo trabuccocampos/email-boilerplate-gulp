@@ -11,8 +11,7 @@ var gulp = require('gulp'),
     gutil = require('gulp-util'),
     filter = require('gulp-filter'),
     plumber = require('gulp-plumber'),
-    del = require('del'),
-    notify = require('gulp-notify');
+    del = require('del');
 
 
 // Compile all SCSS files to CSS and copy to app/css
