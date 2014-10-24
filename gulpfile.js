@@ -5,12 +5,12 @@ var gulp = require('gulp'),
     premailer = require('gulp-premailer'),
     sass = require('gulp-sass'),
     sourcemaps = require('gulp-sourcemaps'),
-    autoprefixer = require('gulp-autoprefixer'),
     csso = require('gulp-csso'),
     browserSync = require('browser-sync'),
     imagemin    = require('gulp-imagemin'),
     gutil = require('gulp-util'),
     filter = require('gulp-filter'),
+    autoprefixer = require('gulp-autoprefixer'),
     plumber = require('gulp-plumber'),
     del = require('del');
 
@@ -37,7 +37,6 @@ gulp.task('sass', function() {
 
 // compressing images & handle SVG files
 gulp.task('images', function() {
-     console.log(tmp);
     gulp.src(['app/img/**'])
         .pipe(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true }));
 });
@@ -87,9 +86,11 @@ gulp.task('browser-sync', function () {
       './**/*.html',
       './css/**/*.css'
    ];
-   logPrefix: 'WSK',
+   
    browserSync.init(files, {
-      server: ['.tmp','app']
+      server: {
+        baseDir: "./"
+      }
    });
 });
 
