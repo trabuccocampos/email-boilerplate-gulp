@@ -58,18 +58,18 @@ gulp.task('sass-deploy', function() {
             cascade: false
         }))
        .pipe(csso())
-       .pipe(gulp.dest('dist/css'));
+       .pipe(gulp.dest('build/css'));
 });
 
 // DEPLOY: compressing images & handle SVG files
 gulp.task('images-deploy', function() {
     gulp.src(['app/img/**/*'])
-        .pipe(gulp.dest('dist/img'));
+        .pipe(gulp.dest('build/img'));
 });
 
 // DEPLOY: Place all CSS inline and copy html files to build
-gulp.task('inline', ['sass'], function() {
-  return gulp.src(['./dist/*.html'])
+gulp.task('inline', ['sass-deploy'], function() {
+  return gulp.src(['./app/*.html'])
        .pipe(premailer())
        .pipe(gulp.dest('./build'));
 });
@@ -84,12 +84,12 @@ gulp.task('deploy', ['sass-deploy', 'images-deploy', 'inline']);
 gulp.task('browser-sync', function () {
    var files = [
       './**/*.html',
-      './css/**/*.css'
+      './app/**/*.css'
    ];
    
    browserSync.init(files, {
       server: {
-        baseDir: "./"
+        baseDir: "./app/"
       }
    });
 });
@@ -99,7 +99,7 @@ gulp.task('clean', del.bind(null, ['dist']));
 
 // Watch all changed files and perform its respective action
 gulp.task('watch', function() {
-  gulp.watch('./sass/*.scss', ['sass']);
+  gulp.watch('./app/sass/*.scss', ['sass']);
   gulp.watch('img/**', ['images']);
 });
 
